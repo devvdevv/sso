@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using sso.Data;
 
-namespace sso;
+namespace WebClient.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -16,4 +16,4 @@ public class WeatherForeCastController : ControllerBase
         var result = service.GetForecastAsync(DateTime.Now);
         return Ok(result);
     }
-}
+} 
