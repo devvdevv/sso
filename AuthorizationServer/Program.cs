@@ -39,7 +39,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapGet("/", async context =>
     {
-        await context.Response.WriteAsync("Hello World!");
+        await context.Response.WriteAsync("IdentityServer4 is running...");
     });
 });
 

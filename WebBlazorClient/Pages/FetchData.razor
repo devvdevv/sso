@@ -2,8 +2,9 @@
 
 <PageTitle>Weather forecast</PageTitle>
 
+@using WebBlazorClient.Services
 @using WebBlazorClient.Data
-@inject WeatherForecastApiService WeatherForecastApiService
+@inject WeatherForecastApiService _weatherForecastApiService
 
 <h1>Weather forecast</h1>
 
@@ -43,6 +44,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await WeatherForecastApiService.Get();
+        forecasts = await _weatherForecastApiService.Get();
     }
 }

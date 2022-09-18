@@ -7,6 +7,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAuthentication("Bearer")
+                .AddIdentityServerAuthentication("Bearer", options =>
+                {
+                    options.Authority = "https://localhost:44335";
+                    options.ApiName = "myApi";
+                    options.ApiSecret = "secret";
+                    options.RequireHttpsMetadata = false; // DEV only!!
+                });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,6 +28,11 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseAuthentication();
+
+app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
+app.UseDeveloperExceptionPage();
 
 app.MapControllers();
 

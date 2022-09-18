@@ -1,10 +1,11 @@
 using IdentityModel.Client;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using WebBlazorClient.Data;
 
 namespace WebBlazorClient.Services
 {
-    public class WeatherForecastApiService
+    public class WeatherForecastApiService : Controller
     {
         private static string Message { get; set; } = "";
         private static string Code { get; set; }
