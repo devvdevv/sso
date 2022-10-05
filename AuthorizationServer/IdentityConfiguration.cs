@@ -1,65 +1,64 @@
-﻿using IdentityModel;
+﻿using System.Security.Claims;
+using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
-using System.Security.Claims;
 
-namespace AuthorizationServer
+namespace AuthorizationServer;
+
+public class IdentityConfiguration
 {
-    public class IdentityConfiguration
-    {
-        public static List<TestUser> TestUsers =>
-            new()
+    public static List<TestUser> TestUsers =>
+        new()
+        {
+            new TestUser
             {
-                new TestUser
+                SubjectId = "1144",
+                Username = "mukesh",
+                Password = "mukesh",
+                Claims =
                 {
-                    SubjectId = "1144",
-                    Username = "mukesh",
-                    Password = "mukesh",
-                    Claims =
-                    {
-                        new Claim(JwtClaimTypes.Name, "Mukesh Murugan"),
-                        new Claim(JwtClaimTypes.GivenName, "Mukesh"),
-                        new Claim(JwtClaimTypes.FamilyName, "Murugan"),
-                        new Claim(JwtClaimTypes.WebSite, "http://codewithmukesh.com"),
-                    }
+                    new Claim(JwtClaimTypes.Name, "Mukesh Murugan"),
+                    new Claim(JwtClaimTypes.GivenName, "Mukesh"),
+                    new Claim(JwtClaimTypes.FamilyName, "Murugan"),
+                    new Claim(JwtClaimTypes.WebSite, "http://codewithmukesh.com")
                 }
-            };
+            }
+        };
 
-        public static IEnumerable<IdentityResource> IdentityResources =>
-            new IdentityResource[]
-            {
-                new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
-            };
+    public static IEnumerable<IdentityResource> IdentityResources =>
+        new IdentityResource[]
+        {
+            new IdentityResources.OpenId(),
+            new IdentityResources.Profile()
+        };
 
-        public static IEnumerable<ApiScope> ApiScopes =>
-            new []
-            {
-                new ApiScope("myApi.read"),
-                new ApiScope("myApi.write"),
-            };
+    public static IEnumerable<ApiScope> ApiScopes =>
+        new[]
+        {
+            new ApiScope("myApi.read"),
+            new ApiScope("myApi.write")
+        };
 
-        public static IEnumerable<ApiResource> ApiResources =>
-            new []
+    public static IEnumerable<ApiResource> ApiResources =>
+        new[]
+        {
+            new ApiResource("myApi")
             {
-                new ApiResource("myApi")
-                {
-                    Scopes = new List<string>{ "myApi.read","myApi.write" },
-                    ApiSecrets = new List<Secret>{ new("supersecret".Sha256()) }
-                }
-            };
+                Scopes = new List<string> { "myApi.read", "myApi.write" },
+                ApiSecrets = new List<Secret> { new("supersecret".Sha256()) }
+            }
+        };
 
-        public static IEnumerable<Client> Clients =>
-            new []
+    public static IEnumerable<Client> Clients =>
+        new[]
+        {
+            new Client
             {
-                new Client
-                {
-                    ClientId = "cwm.client",
-                    ClientName = "Client Credentials Client",
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets = { new Secret("secret".Sha256()) },
-                    AllowedScopes = { "myApi.read" }
-                },
-            };
-    }
+                ClientId = "cwm.client",
+                ClientName = "Client Credentials Client",
+                AllowedGrantTypes = GrantTypes.ClientCredentials,
+                ClientSecrets = { new Secret("secret".Sha256()) },
+                AllowedScopes = { "myApi.read" }
+            }
+        };
 }

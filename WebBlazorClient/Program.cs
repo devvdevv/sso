@@ -1,13 +1,11 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using WebBlazorClient.Services;
+using WebBlazorClient.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastApiService>();
+builder.Services.AddSingleton<WeatherForecastApiController>();
 
 var app = builder.Build();
 
