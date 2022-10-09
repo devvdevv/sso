@@ -8,6 +8,16 @@
 
     <ItemGroup>
       <PackageReference Include="IdentityModel.OidcClient" Version="5.0.2" />
+      <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Views" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Shared\Home\Index.cshtml" />
     </ItemGroup>
 
 </Project>

@@ -1,11 +1,12 @@
 using System.Net;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using WebClient.Data;
 
 namespace WebClient.Controllers;
 
-public class WeatherForecastApiController : Controller
+public class HomeController : Controller
 {
     private const string ClientId = "simple_client";
     private const string ClientSecret = "secret";
@@ -54,7 +55,7 @@ public class WeatherForecastApiController : Controller
         return RedirectToAction("Index");
     }
 
-    public async Task<WeatherForecast[]> GetWeatherForecast()
+    public async Task<IActionResult> GetWeatherForecast()
     {
         var httpClient = new HttpClient();
         if (Token != null) httpClient.SetBearerToken(Token);
@@ -62,14 +63,15 @@ public class WeatherForecastApiController : Controller
         var response = await httpClient.GetAsync("https://localhost:44334/api/v1/weather-forecast");
 
         if (response.IsSuccessStatusCode)
-            Message += "\n\nAPI access authorized!";
+        {
+            var data = await response.Content.ReadAsStringAsync();
+            Message += $"\n\n {JsonConvert.DeserializeObject(data)}";
+        }
         else if (response.StatusCode == HttpStatusCode.Unauthorized)
             Message += "\nUnable to contact API: Unauthorized!";
         else
             Message += $"\n\nUnable to contact API. Status code {response.StatusCode}";
 
-        Console.WriteLine(response);
-
-        return Array.Empty<WeatherForecast>();
+        return RedirectToAction("Index");
     }
 }
