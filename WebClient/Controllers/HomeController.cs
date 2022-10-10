@@ -8,9 +8,9 @@ namespace WebClient.Controllers;
 
 public class HomeController : Controller
 {
-    private const string ClientId = "simple_client";
+    private const string ClientId = "cwm.client";
     private const string ClientSecret = "secret";
-    private const string RedirectUri = "http://localhost:44336/callback";
+    private const string RedirectUri = "https://localhost:44336/callback";
     private static string Message { get; set; } = "";
     private static string? Code { get; set; }
     private static string? Token { get; set; }
@@ -24,7 +24,7 @@ public class HomeController : Controller
     {
         Message += "\n\nRedirecting to authorization endpoint...";
         return Redirect(
-            $"http://localhost:44335/connect/authorize?client_id={ClientId}&scope=myApi.read.rewards&redirect_uri={RedirectUri}&response_type=code&response_mode=query");
+            $"https://localhost:44335/connect/authorize?client_id={ClientId}&scope=myApi.read&redirect_uri={RedirectUri}&response_type=code&response_mode=query");
     }
 
     public async Task<IActionResult> Callback([FromQuery] string code)

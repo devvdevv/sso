@@ -6,7 +6,6 @@ Console.Title = "IdentityServer4 is running...";
 // Add services to the container.
 var services = builder.Services;
 services.AddMvc();
-services.AddRazorPages();
 services.AddIdentityServer()
     .AddInMemoryClients(IdentityConfiguration.Clients)
     .AddInMemoryIdentityResources(IdentityConfiguration.IdentityResources)
@@ -16,25 +15,10 @@ services.AddIdentityServer()
     .AddDeveloperSigningCredential();
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-
-app.UseHttpsRedirection();
+app.UseDeveloperExceptionPage();
 app.UseStaticFiles();
-
 app.UseRouting();
 app.UseIdentityServer();
-
 app.UseAuthorization();
-
-app.MapRazorPages();
-
 app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
-
 app.Run();

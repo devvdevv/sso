@@ -56,9 +56,12 @@ public class IdentityConfiguration
             {
                 ClientId = "cwm.client",
                 ClientName = "Client Credentials Client",
-                AllowedGrantTypes = GrantTypes.ClientCredentials,
+                AccessTokenType = AccessTokenType.Reference,
+                AllowedGrantTypes = GrantTypes.Code,
                 ClientSecrets = { new Secret("secret".Sha256()) },
-                AllowedScopes = { "myApi.read" }
+                AllowedScopes = { "myApi.read" },
+                RedirectUris = {"https://localhost:44336/callback"},
+                RequirePkce = false
             }
         };
 }

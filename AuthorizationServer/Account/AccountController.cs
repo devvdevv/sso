@@ -1,18 +1,16 @@
-﻿using System.Security.Claims;
-using AuthorizationServer.Account;
-using IdentityServer4.Events;
+﻿using IdentityServer4.Events;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using IdentityServer4.Test;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace AuthorizationServer.Controllers;
+namespace AuthorizationServer.Account;
 
 [SecurityHeaders]
 [AllowAnonymous]
-public class AuthenticationController : Controller
+public class AccountController : Controller
     {
         private readonly TestUserStore users;
         private readonly IIdentityServerInteractionService interaction;
@@ -20,7 +18,7 @@ public class AuthenticationController : Controller
         private readonly IAuthenticationSchemeProvider schemeProvider;
         private readonly IEventService events;
 
-        public AuthenticationController(
+        public AccountController(
             TestUserStore users,
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
