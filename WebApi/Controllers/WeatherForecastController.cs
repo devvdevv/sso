@@ -5,7 +5,7 @@ namespace WebApi.Controllers;
 
 [ApiController]
 [Route("api/v1/weather-forecast")]
-// [Authorize]
+[Authorize]
 public class WeatherForecastController : ControllerBase
 {
     private static readonly string[] Summaries =
