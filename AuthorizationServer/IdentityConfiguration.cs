@@ -13,8 +13,8 @@ public class IdentityConfiguration
             new TestUser
             {
                 SubjectId = "1144",
-                Username = "mukesh",
-                Password = "mukesh",
+                Username = "long",
+                Password = "123",
                 Claims =
                 {
                     new Claim(JwtClaimTypes.Name, "Mukesh Murugan"),

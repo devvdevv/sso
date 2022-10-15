@@ -64,6 +64,7 @@ public class AccountController : Controller
                         };
                     }
 
+                    // TODO: đang thiếu principal => cần tìm hiểu...
                     await HttpContext.SignInAsync(user.SubjectId, null, props);
 
                     if (context != null)

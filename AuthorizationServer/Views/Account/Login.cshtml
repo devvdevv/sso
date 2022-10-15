@@ -2,39 +2,43 @@
 
 <div class="row">
     <div class="col-sm-offset-3 col-sm-6">
-        <img src="~/rocket-logo.jpg" class="img-responsive center-block" alt="Wired Brain Coffee Logo" width="200" />
+        <img src="~/rocket-logo.jpg" class="img-responsive center-block" alt="Rocket SSO" width="200"/>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-offset-3 col-sm-6">
         <h1 class="text-center">Login</h1>
-        <form asp-route="Login">
-            @* @Html.Partial("_ValidationSummary") *@
-            <input type="hidden" asp-for="ReturnUrl" />
+        <strong>Return Url: @(ViewContext.HttpContext.Request.Query["ReturnUrl"])</strong>
+        @Html.Partial("_ValidationSummary")
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            Model.ReturnUrl = ViewContext.HttpContext.Request.Query["ReturnUrl"];
+            @Html.HiddenFor(model => model.ReturnUrl)
             <fieldset>
                 <div class="form-group">
                     <label asp-for="Username"></label>
-                    <input class="form-control" placeholder="Username" asp-for="Username" autofocus>
+                    <input class="form-control" placeholder="Username" id="Username" name="Username" autofocus>
                 </div>
                 <div class="form-group">
                     <label asp-for="Password"></label>
-                    <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
+                    <input type="password" class="form-control" placeholder="Password" id="Password" name="Password" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary" name="button" value="login">Login</button>
                 </div>
             </fieldset>
-        </form>
+        }
     </div>
     <div class="col-sm-3">
         <h3>Request Details</h3>
         <ul>
-
             @if (Model.Parameters != null)
             {
                 @foreach (var key in Model.Parameters)
                 {
-                    <li><strong>@key:</strong> @Model.Parameters[(string) key]</li>
+                    <li>
+                        <strong>@key:</strong> @Model.Parameters[(string)key]
+                    </li>
                 }
             }
         </ul>
