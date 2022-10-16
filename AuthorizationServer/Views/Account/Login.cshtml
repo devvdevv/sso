@@ -8,12 +8,14 @@
 <div class="row">
     <div class="col-sm-offset-3 col-sm-6">
         <h1 class="text-center">Login</h1>
-        <strong>Return Url: @(ViewContext.HttpContext.Request.Query["ReturnUrl"])</strong>
+        @* <strong>Return Url: @(Model.Parameters["redirect_uri"] ?? "----")</strong> *@
+        @* @{ var redirectUri = Model.Parameters["redirect_uri"] ?? String.Empty; } *@
         @Html.Partial("_ValidationSummary")
         @using (Html.BeginForm("Login", "Account", FormMethod.Post))
         {
-            Model.ReturnUrl = ViewContext.HttpContext.Request.Query["ReturnUrl"];
+            // Model.ReturnUrl = ViewContext.HttpContext.Request.Query["ReturnUrl"];
             @Html.HiddenFor(model => model.ReturnUrl)
+            @* Model.ReturnUrl = redirectUri; *@
             <fieldset>
                 <div class="form-group">
                     <label asp-for="Username"></label>

@@ -36,7 +36,7 @@ public class HomeController : Controller
         var tokenClient = new HttpClient();
         var tokenResponse = await tokenClient.RequestAuthorizationCodeTokenAsync(new AuthorizationCodeTokenRequest
         {
-            Address = "https://localhost:44339/connect/token",
+            Address = "https://localhost:44335/connect/token",
             ClientId = ClientId,
             ClientSecret = ClientSecret,
             Code = Code,

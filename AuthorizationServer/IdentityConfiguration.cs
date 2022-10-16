@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using IdentityModel;
+using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
 
@@ -12,15 +13,15 @@ public class IdentityConfiguration
         {
             new TestUser
             {
-                SubjectId = "1144",
+                SubjectId = "774a0068e9c04e97ba6a96f85f61c05c",
                 Username = "long",
                 Password = "123",
                 Claims =
                 {
-                    new Claim(JwtClaimTypes.Name, "Mukesh Murugan"),
-                    new Claim(JwtClaimTypes.GivenName, "Mukesh"),
-                    new Claim(JwtClaimTypes.FamilyName, "Murugan"),
-                    new Claim(JwtClaimTypes.WebSite, "http://codewithmukesh.com")
+                    new Claim(JwtClaimTypes.Name, "Long"),
+                    new Claim(JwtClaimTypes.GivenName, "Long"),
+                    new Claim(JwtClaimTypes.FamilyName, "Pham Bao"),
+                    new Claim(JwtClaimTypes.WebSite, "https://google.com")
                 }
             }
         };
