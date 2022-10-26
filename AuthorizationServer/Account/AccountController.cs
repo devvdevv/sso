@@ -1,4 +1,5 @@
 ﻿using System.Security.Principal;
+using IdentityServer4;
 using IdentityServer4.Events;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
@@ -55,26 +56,29 @@ public class AccountController : Controller
                 var user = _users.FindByUsername(model.Username);
                 await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.SubjectId, user.Username));
 
-                AuthenticationProperties props = null;
-                if (model.RememberLogin)
-                    props = new AuthenticationProperties
+                var props = model.RememberLogin
+                    ? new AuthenticationProperties
                     {
                         IsPersistent = true,
                         ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1)
-                    };
+                    }
+                    : null;
 
                 var identity = new GenericIdentity(model.Username);
                 var principal = new GenericPrincipal(identity, new string[0]);
                 HttpContext.User = principal;
-                await HttpContext.SignInAsync(user.SubjectId, User, props);
+                
+                // await HttpContext.SignInAsync(user.SubjectId, User, props);
+                await HttpContext.SignInAsync(new IdentityServerUser(user.SubjectId)
+                {
+                    DisplayName = user.Username,
+                }, props);
 
                 if (context != null)
                 {
                     if (await _clientStore.IsPkceClientAsync(context.Client.ClientId))
                         return View("Redirect", new RedirectViewModel { RedirectUrl = model.ReturnUrl });
 
-                    // it should be something like: https://localhost:44336/callback
-                    // TODO: ISSUE => ReturnUrl is a parameter of ReturnUrl in Request?
                     return Redirect(model.ReturnUrl);
                 }
 
