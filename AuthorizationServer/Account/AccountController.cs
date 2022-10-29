@@ -68,23 +68,30 @@ public class AccountController : Controller
                 var principal = new GenericPrincipal(identity, new string[0]);
                 HttpContext.User = principal;
                 
-                // await HttpContext.SignInAsync(user.SubjectId, User, props);
                 await HttpContext.SignInAsync(new IdentityServerUser(user.SubjectId)
                 {
                     DisplayName = user.Username,
                 }, props);
 
-                if (context != null)
+                if (context is not null)
                 {
                     if (await _clientStore.IsPkceClientAsync(context.Client.ClientId))
+                    {
                         return View("Redirect", new RedirectViewModel { RedirectUrl = model.ReturnUrl });
+                    }
 
                     return Redirect(model.ReturnUrl);
                 }
 
-                if (Url.IsLocalUrl(model.ReturnUrl)) return Redirect(model.ReturnUrl);
+                if (Url.IsLocalUrl(model.ReturnUrl))
+                {
+                    return Redirect(model.ReturnUrl);
+                }
 
-                if (string.IsNullOrEmpty(model.ReturnUrl)) return Redirect("~/");
+                if (string.IsNullOrEmpty(model.ReturnUrl))
+                {
+                    return Redirect("~/");
+                }
 
                 throw new Exception("invalid return URL");
             }

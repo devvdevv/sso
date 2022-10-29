@@ -68,9 +68,13 @@ public class HomeController : Controller
             Message += $"\n\n {JsonConvert.DeserializeObject(data)}";
         }
         else if (response.StatusCode == HttpStatusCode.Unauthorized)
+        {
             Message += "\nUnable to contact API: Unauthorized!";
+        }
         else
+        {
             Message += $"\n\nUnable to contact API. Status code {response.StatusCode}";
+        }
 
         return RedirectToAction("Index");
     }
