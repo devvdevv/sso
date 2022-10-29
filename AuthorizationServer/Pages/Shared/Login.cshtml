@@ -1,12 +1,7 @@
 @model AuthorizationServer.Account.LoginViewModel
 
-<div class="row">
-    <div class="col-sm-offset-3 col-sm-6">
-        <img src="~/rocket-logo.jpg" class="img-responsive center-block" alt="Rocket SSO" width="200"/>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-offset-3 col-sm-6">
+<div class="row justify-content-center">
+    <div class="col-sm-6" style="max-width: 500px">
         <h1 class="text-center">Login</h1>
         @Html.Partial("_ValidationSummary")
         @using (Html.BeginForm("Login", "Account", FormMethod.Post))
@@ -21,24 +16,27 @@
                     <label asp-for="Password"></label>
                     <input type="password" class="form-control" placeholder="Password" id="Password" name="Password" autocomplete="off">
                 </div>
-                <div class="form-group">
+                <br/>
+                <div class="form-group d-grid gap-2">
                     <button class="btn btn-primary" name="button" value="login">Login</button>
                 </div>
             </fieldset>
         }
-    </div>
-    <div class="col-sm-3">
-        <h3>Request Details</h3>
-        <ul>
-            @if (Model.Parameters != null)
-            {
-                @foreach (var key in Model.Parameters)
+        <br/>
+        <h4>Request Details</h4>
+        <div class="card" style="background: #f7f7f7">
+            <div class="card-body">
+                @if (Model.Parameters != null)
                 {
-                    <li>
-                        <strong>@key:</strong> @Model.Parameters[(string)key]
-                    </li>
+                    @foreach (var key in Model.Parameters)
+                    {
+                        <li>
+                            <strong>@key:</strong> @Model.Parameters[(string)key]
+                        </li>
+                    }
                 }
-            }
-        </ul>
+            </div>
+            
+        </div>
     </div>
 </div>
